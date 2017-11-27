@@ -7,6 +7,7 @@ const inquirer = require('inquirer');
 const logUpdate = require('log-update');
 const Listr = require('listr');
 var clear = require('clear');
+const ListrMultilineRenderer = require('listr-multiline-renderer');
 
 const cli = meow(`
 Usage
@@ -31,51 +32,3 @@ Examples
 const searchQuery = cli.input.join(' ');
 const language = cli.flags.language;
 
-let results = [];
-
-clear();
-
-const tasks = new Listr([
-	{
-		title: 'Checking sources',
-		task: () => new Observable((observer) => {
-			observer.next(`Searching`);
-
-			Caption
-				.searchByQuery(searchQuery, language)
-				.on("fastest", subtitles => {
-					observer.next(`First source responded with ${subtitles.length} results`);
-				})
-				.on("completed", subtitles => {
-					results = subtitles;
-					observer.next(`All sources checked. Found ${subtitles.length} results`);
-					observer.complete();
-				});
-		})
-	},
-	{
-		title: `Found ${results.length} results`,
-		task: () => {
-			Promise.resolve()
-		}
-	},
-	{
-		title: 'Select subtitle',
-		task: () => {
-			inquirer.prompt([
-				{
-					type: 'list',
-					name: 'selectedSubtitle',
-					message: 'Select a subtitle',
-					choices: results.map(result => result.name)
-				}
-			]).then(function (answers) {
-				console.log(JSON.stringify(answers, null, '  '));
-			});
-		}
-	}
-]);
-
-tasks.run().catch(err => {
-	console.error(err);
-});
