@@ -1,0 +1,32 @@
+{
+  "name": "caption-cli",
+  "version": "0.0.1",
+  "description": "Find your subtitles using a CLI.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "cli",
+    "caption",
+    "subtitles",
+    "download"
+  ],
+  "bin": {
+    "caption": "src/cli.js"
+  },
+  "files": [
+    "src/cli.js"
+  ],
+  "author": "Vernon de Goede",
+  "license": "MIT",
+  "dependencies": {
+    "caption-core": "^1.0.2-alpha",
+    "clear": "0.0.1",
+    "clear-cli": "^1.0.1",
+    "inquirer": "^3.3.0",
+    "listr": "^0.13.0",
+    "meow": "^3.7.0",
+    "zen-observable": "^0.6.0"
+  }
+}
